@@ -1,6 +1,17 @@
-MAIN=tutorial2
+#!/bin/sh
+
+if [ "$#" -ne  1 ]; then
+  echo "Usage $0 [main_cpp_file]"
+  exit 1
+fi
+
+MAIN=$1
+OUTPUT=${MAIN%%.*}
 OUTFOLDER=compiledFiles
-echo "Compilando Main..."
-g++ -o ${MAIN} ${MAIN}.cpp ${OUTFOLDER}/MuUtil.o ${OUTFOLDER}/MuError.o ${OUTFOLDER}/MuParamBlock.o ${OUTFOLDER}/MuNote.o ${OUTFOLDER}/MuVoice.o ${OUTFOLDER}/MuMaterial.o
-echo "Alterando permissoes do arquivo executavel..."
-chmod 755 ${MAIN}
+
+echo "Compiling..."
+g++ -o ${OUTPUT} ${MAIN} ${OUTFOLDER}/MuUtil.o ${OUTFOLDER}/MuError.o ${OUTFOLDER}/MuParamBlock.o ${OUTFOLDER}/MuNote.o ${OUTFOLDER}/MuVoice.o ${OUTFOLDER}/MuMaterial.o
+
+chmod 755 ${OUTPUT}
+
+echo "Executable file: ${OUTPUT}"
